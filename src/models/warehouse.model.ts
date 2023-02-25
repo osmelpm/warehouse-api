@@ -16,9 +16,18 @@ const ProductSchema = new Schema(
     },
     price: {
       type: Number,
-      min: 0,
       required: true,
       default: 0.0,
+    },
+    stock: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+    user: {
+      type: Schema.Types.ObjectId,
+      require: true,
+      ref: 'User',
     },
     isDeleted: {
       type: Boolean,

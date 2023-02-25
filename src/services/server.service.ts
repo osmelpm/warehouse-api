@@ -2,7 +2,7 @@ import 'dotenv/config'
 import express, { Application } from 'express'
 import cors from 'cors'
 import { dbConnection } from '../db/config.db'
-import { userRouter, authRouter } from '../routes'
+import { userRouter, authRouter, productRouter } from '../routes'
 import { UserInterface } from '../types'
 
 export class Server {
@@ -12,6 +12,7 @@ export class Server {
   private paths = {
     users: '/api/v1/users',
     auth: '/api/v1/auth',
+    products: '/api/v1/products',
   }
 
   constructor() {
@@ -37,6 +38,7 @@ export class Server {
   routes() {
     this.app.use(this.paths.users, userRouter)
     this.app.use(this.paths.auth, authRouter)
+    this.app.use(this.paths.products, productRouter)
   }
 
   listen() {
