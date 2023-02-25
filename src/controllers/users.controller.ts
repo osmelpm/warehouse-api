@@ -1,10 +1,10 @@
 import { Request, Response } from 'express'
 import { genSaltSync, hashSync } from 'bcrypt'
 import { User } from '../models'
-import usersSeed from '../seeds/users.seed'
+import { usersSeed } from '../seeds'
 
 export const getAllUsers = async (req: Request, res: Response) => {
-  const { limit = 5, next = 1 } = req.query
+  const { limit = 5, page = 1 } = req.query
   const query = { isDeleted: false }
 
   try {
@@ -12,7 +12,7 @@ export const getAllUsers = async (req: Request, res: Response) => {
       User.countDocuments(query),
       User.find(query)
         .limit(Number(limit))
-        .skip((Number(next) - 1) * Number(limit)),
+        .skip((Number(page) - 1) * Number(limit)),
     ])
 
     res.json({

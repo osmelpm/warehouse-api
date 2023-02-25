@@ -1,6 +1,6 @@
 import { hashSync } from 'bcrypt'
 
-const userSeed = [
+export const usersSeed = [
   {
     name: 'UserAdmin',
     email: 'useradmin@gmail.com',
@@ -29,5 +29,3 @@ const userSeed = [
     isDeleted: true,
   },
 ]
-
-export default userSeed
