@@ -48,3 +48,13 @@ export const validRole = async (role: string) => {
     throw new Error(`The role: ${role} is not valid!`)
   }
 }
+
+export const isUserAvailable = async (email: string) => {
+  if (!email) throw new Error('Empty field!')
+
+  const user = await User.findOne({ email, isDeleted: false })
+
+  if (!user) {
+    throw new Error('User unavailable!')
+  }
+}

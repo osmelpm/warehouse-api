@@ -10,12 +10,12 @@ import {
 } from '../controllers/users.controller'
 import { Models } from '../enums/models.enum'
 import { isValidData, idExist, validRole } from '../helpers/db-validators'
-import { fieldValidator } from '../middlewares/field-validator.middleware'
+import { validateJWT, fieldValidator, isAdmin } from '../middlewares'
 
-const userRouter = Router()
+export const userRouter = Router()
 
 // GET ALL USERS - PRIVATE --ADMIN
-userRouter.get('/', fieldValidator, getAllUsers)
+userRouter.get('/', [validateJWT, isAdmin, fieldValidator], getAllUsers)
 
 // GET USER BY ID - PRIVATE --ADMIN
 userRouter.get(
@@ -23,6 +23,8 @@ userRouter.get(
   [
     check('id', 'The id is not valid!').isMongoId(),
     check('id').custom((id) => idExist(id, Models.User)),
+    validateJWT,
+    isAdmin,
     fieldValidator,
   ],
   getUserById,
@@ -46,6 +48,8 @@ userRouter.post(
       min: 8,
     }),
     check('role', "The role doesn't exist").custom(validRole),
+    validateJWT,
+    isAdmin,
     fieldValidator,
   ],
   createUser,
@@ -57,6 +61,8 @@ userRouter.put(
   [
     check('id', 'The id is not valid!').isMongoId(),
     check('id').custom((id) => idExist(id, Models.User)),
+    validateJWT,
+    isAdmin,
     fieldValidator,
   ],
   editUser,
@@ -68,11 +74,11 @@ userRouter.delete(
   [
     check('id', 'The id is not valid!').isMongoId(),
     check('id').custom((id) => idExist(id, Models.User)),
+    validateJWT,
+    isAdmin,
     fieldValidator,
   ],
   deleteUser,
 )
 // IMPORT USERS FROM SEED
 userRouter.post('/import-data', importUsers)
-
-export default userRouter

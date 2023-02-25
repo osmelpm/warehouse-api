@@ -2,7 +2,8 @@ import 'dotenv/config'
 import express, { Application } from 'express'
 import cors from 'cors'
 import { dbConnection } from '../db/config.db'
-import userRouter from '../routes/users.route'
+import { userRouter, authRouter } from '../routes'
+import { UserInterface } from '../types'
 
 export class Server {
   private app: Application
@@ -10,11 +11,12 @@ export class Server {
   private env: string
   private paths = {
     users: '/api/v1/users',
+    auth: '/api/v1/auth',
   }
 
   constructor() {
     this.app = express()
-    this.port = process.env.PORT || '8080'
+    this.port = process.env.PORT || '8000'
     this.env = this.app.get('env')
 
     this.connectDB()
@@ -25,6 +27,7 @@ export class Server {
   middlewares() {
     this.app.use(cors())
     this.app.use(express.json())
+    this.app.use(express.static('public'))
   }
 
   async connectDB() {
@@ -33,11 +36,20 @@ export class Server {
 
   routes() {
     this.app.use(this.paths.users, userRouter)
+    this.app.use(this.paths.auth, authRouter)
   }
 
   listen() {
     this.app.listen(this.port, () =>
       console.log('Server running in port:', this.port),
     )
+  }
+}
+
+declare global {
+  namespace Express {
+    interface Request {
+      user?: UserInterface
+    }
   }
 }

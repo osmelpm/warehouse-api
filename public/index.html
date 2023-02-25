@@ -11,7 +11,7 @@
     <hr />
     <div
       id="g_id_onload"
-      data-client_id="414523893976-ia84gqf3e1qpmkqfppcm20flgtk9ei9i.apps.googleusercontent.com"
+      data-client_id="580916219218-6bh92clmttcpoisesp9occjm8gloc40t.apps.googleusercontent.com"
       data-callback="handleCredentialResponse"
       data-auto_prompt="false"
     ></div>
@@ -32,7 +32,7 @@
           id_token: response.credential,
         }
 
-        fetch('http://localhost:8080/api/v1/auth/google', {
+        fetch('http://localhost:8000/api/v1/auth/google', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
