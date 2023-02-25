@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    /* Visit https://aka.ms/tsconfig to read more about this file */
+    /* Language and Environment */
+    "target": "es6",
+    /* Modules */
+    "rootDir": "./src",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    /* Emit */
+    "sourceMap": true,
+    "outDir": "./build",
+    /* Interop Constraints */
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    /* Type Checking */
+    "strict": true,
+    // "noImplicitAny": true,
+    "strictNullChecks": true,
+    // "strictPropertyInitialization": true, /* Check for class properties that are declared but not set in the constructor. */
+    /* Completeness */
+    "skipLibCheck": true
+  }
+}

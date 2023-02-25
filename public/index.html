@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Google Sign In</title>
+  </head>
+  <body>
+    <h3>Google Sign In</h3>
+    <hr />
+    <div
+      id="g_id_onload"
+      data-client_id="414523893976-ia84gqf3e1qpmkqfppcm20flgtk9ei9i.apps.googleusercontent.com"
+      data-callback="handleCredentialResponse"
+      data-auto_prompt="false"
+    ></div>
+    <div
+      class="g_id_signin"
+      data-type="standard"
+      data-size="large"
+      data-theme="outline"
+      data-text="sign_in_with"
+      data-shape="rectangular"
+      data-logo_alignment="left"
+    ></div>
+    <button id="revoke">Sign out</button>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script>
+      function handleCredentialResponse(response) {
+        const tokenId = {
+          id_token: response.credential,
+        }
+
+        fetch('http://localhost:8080/api/v1/auth/google', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(tokenId),
+        })
+          .then((res) => res.json())
+          .then((res) => {
+            localStorage.setItem('user', res.user.email)
+            location.reload()
+          })
+      }
+
+      const btn = document.getElementById('revoke')
+      btn.onclick = () => {
+        const user = localStorage.getItem('user')
+        google.accounts.id.disableAutoSelect()
+        google.accounts.id.revoke(user, (done) => {
+          localStorage.removeItem('user')
+          console.log('consent revoked')
+          location.reload()
+        })
+      }
+    </script>
+  </body>
+</html>
