@@ -15,3 +15,11 @@ export interface Product {
   product: product
   stock: number
 }
+
+export interface ProductSchema {
+  name: string
+  desc: string
+  img: string
+  price: number
+  isDeleted: boolean
+}

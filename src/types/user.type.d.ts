@@ -1,7 +1,7 @@
 import { Schema } from 'mongoose'
 import { ROLES } from '../enums/roles.enum'
 
-export interface UserInterface {
+export interface UserSchema {
   id: Schema.Types.ObjectId
   name: string
   email: string

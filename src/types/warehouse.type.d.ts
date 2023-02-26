@@ -8,7 +8,7 @@ interface Items {
   user: Schema.Types.ObjectId
 }
 
-export interface WarehouseInterface {
+export interface WarehouseSchema {
   id: Schema.Types.ObjectId
   name: string
   category: CATEGORIES

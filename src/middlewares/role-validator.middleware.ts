@@ -1,12 +1,12 @@
 import { Request, Response, NextFunction } from 'express'
-import { UserInterface } from '../types'
+import { UserSchema } from '../types'
 
 export const isAdmin = async (
   req: Request,
   res: Response,
   next: NextFunction,
 ) => {
-  const { role } = req.user as UserInterface
+  const { role } = req.user as UserSchema
 
   if (role !== 'admin') {
     return res.status(403).json({

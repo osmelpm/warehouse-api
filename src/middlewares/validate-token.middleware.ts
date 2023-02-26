@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 import jwt from 'jsonwebtoken'
 import { User } from '../models'
-import { UserInterface } from '../types'
+import { UserSchema } from '../types'
 import { JwtPayload } from '../types'
 
 export const validateJWT = async (
@@ -23,7 +23,7 @@ export const validateJWT = async (
       process.env.SECRET_KEY || '',
     ) as JwtPayload
 
-    const user = (await User.findById(uid)) as UserInterface
+    const user = (await User.findById(uid)) as UserSchema
 
     req.user = user
 

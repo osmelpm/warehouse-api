@@ -2,13 +2,13 @@ import { Request, Response } from 'express'
 import { compareSync } from 'bcrypt'
 import { User } from '../models'
 import { genJWT, verifyGoogle } from '../helpers'
-import { UserInterface } from '../types'
+import { UserSchema } from '../types'
 
 export const login = async (req: Request, res: Response) => {
   const { email, password } = req.body
 
   try {
-    const user = (await User.findOne({ email })) as UserInterface
+    const user = (await User.findOne({ email })) as UserSchema
 
     const validate = user ? compareSync(password, user.password) : false
 

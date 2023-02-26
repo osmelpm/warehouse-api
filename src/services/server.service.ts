@@ -7,8 +7,9 @@ import {
   authRouter,
   productRouter,
   warehouseRouter,
+  searchRouter,
 } from '../routes'
-import { UserInterface } from '../types'
+import { UserSchema } from '../types'
 
 export class Server {
   private app: Application
@@ -19,6 +20,7 @@ export class Server {
     auth: '/api/v1/auth',
     products: '/api/v1/products',
     warehouse: '/api/v1/warehouses',
+    search: '/api/v1/search',
   }
 
   constructor() {
@@ -46,6 +48,7 @@ export class Server {
     this.app.use(this.paths.auth, authRouter)
     this.app.use(this.paths.products, productRouter)
     this.app.use(this.paths.warehouse, warehouseRouter)
+    this.app.use(this.paths.search, searchRouter)
   }
 
   listen() {
@@ -58,7 +61,7 @@ export class Server {
 declare global {
   namespace Express {
     interface Request {
-      user?: UserInterface
+      user?: UserSchema
     }
   }
 }

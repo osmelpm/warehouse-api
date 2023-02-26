@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import { Types } from 'mongoose'
 import { Warehouse } from '../models'
-import { Product, UserInterface, WarehouseInterface } from '../types'
+import { Product, UserSchema, WarehouseSchema } from '../types'
 import { ProductView } from '../types'
 
 export const getAllWarehouse = async (req: Request, res: Response) => {
@@ -140,12 +140,10 @@ export const deleteWarehouse = async (req: Request, res: Response) => {
 export const addProduct = async (req: Request, res: Response) => {
   const id = req.params.id
   let { _id, isDeleted, product, quantity } = req.body
-  const user = req.user as UserInterface
+  const user = req.user as UserSchema
 
   try {
-    const wharehouseTarget = (await Warehouse.findById(
-      id,
-    )) as WarehouseInterface
+    const wharehouseTarget = (await Warehouse.findById(id)) as WarehouseSchema
     const { items } = wharehouseTarget
 
     if (items) {
@@ -196,12 +194,10 @@ export const withdrawProduct = async (req: Request, res: Response) => {
   const id = req.params.id
   let itemIdx
   let { _id, isDeleted, product, quantity } = req.body
-  const user = req.user as UserInterface
+  const user = req.user as UserSchema
 
   try {
-    const wharehouseTarget = (await Warehouse.findById(
-      id,
-    )) as WarehouseInterface
+    const wharehouseTarget = (await Warehouse.findById(id)) as WarehouseSchema
     let { items } = wharehouseTarget
 
     if (items) {
@@ -269,7 +265,7 @@ export const viewProductStock = async (req: Request, res: Response) => {
   let productID = new Types.ObjectId(itemId)
 
   try {
-    const warehouse = (await Warehouse.findById(whId)) as WarehouseInterface
+    const warehouse = (await Warehouse.findById(whId)) as WarehouseSchema
     //.populate('role', 'role')
 
     const items = warehouse?.items || []
