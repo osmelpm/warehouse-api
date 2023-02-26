@@ -1,5 +1,5 @@
-import { Models } from '../enums/models.enum'
-import { User, Product } from '../models'
+import { Models } from '../enums'
+import { User, Product, Warehouse } from '../models'
 import { MongoID } from '../types'
 
 export const isValidData = async (
@@ -15,6 +15,9 @@ export const isValidData = async (
       break
     case Models.Product:
       dataExist = await Product.findOne({ [prop]: value })
+      break
+    case Models.Warehouse:
+      dataExist = await Warehouse.findOne({ [prop]: value })
       break
   }
 
@@ -33,10 +36,22 @@ export const idExist = async (id: MongoID, model: Models) => {
     case Models.Product:
       idExist = await Product.findById(id)
       break
+    case Models.Warehouse:
+      idExist = await Warehouse.findById(id)
+      break
   }
 
   if (!idExist) {
     throw new Error(`ID: ${id} doesn't exist`)
+  }
+}
+
+export const validCategory = async (category: string) => {
+  const categories = ['hardware', 'electronics']
+  const validCategory = categories.includes(category)
+
+  if (!validCategory) {
+    throw new Error(`The category: ${category} is not valid!`)
   }
 }
 

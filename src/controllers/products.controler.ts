@@ -70,6 +70,15 @@ export const editProduct = async (req: Request, res: Response) => {
       })
     }
 
+    if (prod.name) {
+      const invalidName = await Product.findOne({ name: prod.name })
+      if (invalidName) {
+        return res.status(400).json({
+          msg: 'The name already exist',
+        })
+      }
+    }
+
     const product = await Product.findByIdAndUpdate(
       id,
       { ...prod },

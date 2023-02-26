@@ -8,8 +8,8 @@ import {
   getUserById,
   importUsers,
 } from '../controllers/users.controller'
-import { Models } from '../enums/models.enum'
-import { isValidData, idExist, validRole } from '../helpers/db-validators'
+import { Models } from '../enums'
+import { isValidData, idExist, validRole } from '../helpers'
 import { validateJWT, fieldValidator, isAdmin } from '../middlewares'
 
 export const userRouter = Router()
@@ -21,10 +21,10 @@ userRouter.get('/', [validateJWT, isAdmin, fieldValidator], getAllUsers)
 userRouter.get(
   '/:id',
   [
-    check('id', 'The id is not valid!').isMongoId(),
-    check('id').custom((id) => idExist(id, Models.User)),
     validateJWT,
     isAdmin,
+    check('id', 'The id is not valid!').isMongoId(),
+    check('id').custom((id) => idExist(id, Models.User)),
     fieldValidator,
   ],
   getUserById,
@@ -34,6 +34,8 @@ userRouter.get(
 userRouter.post(
   '/',
   [
+    validateJWT,
+    isAdmin,
     check('name', 'The username is required').not().isEmpty(),
     check('name', 'The username already exist!').custom((user) =>
       isValidData(user, Models.User, 'name'),
@@ -48,8 +50,6 @@ userRouter.post(
       min: 8,
     }),
     check('role', "The role doesn't exist").custom(validRole),
-    validateJWT,
-    isAdmin,
     fieldValidator,
   ],
   createUser,
@@ -59,10 +59,10 @@ userRouter.post(
 userRouter.put(
   '/:id',
   [
-    check('id', 'The id is not valid!').isMongoId(),
-    check('id').custom((id) => idExist(id, Models.User)),
     validateJWT,
     isAdmin,
+    check('id', 'The id is not valid!').isMongoId(),
+    check('id').custom((id) => idExist(id, Models.User)),
     fieldValidator,
   ],
   editUser,
@@ -72,10 +72,10 @@ userRouter.put(
 userRouter.delete(
   '/:id',
   [
-    check('id', 'The id is not valid!').isMongoId(),
-    check('id').custom((id) => idExist(id, Models.User)),
     validateJWT,
     isAdmin,
+    check('id', 'The id is not valid!').isMongoId(),
+    check('id').custom((id) => idExist(id, Models.User)),
     fieldValidator,
   ],
   deleteUser,

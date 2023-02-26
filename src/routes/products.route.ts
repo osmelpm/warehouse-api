@@ -8,7 +8,7 @@ import {
   getProductById,
   importProducts,
 } from '../controllers/products.controler'
-import { Models } from '../enums/models.enum'
+import { Models } from '../enums'
 import { idExist } from '../helpers'
 import { fieldValidator, isAdmin, validateJWT } from '../middlewares'
 
