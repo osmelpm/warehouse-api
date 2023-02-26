@@ -1,5 +1,6 @@
 import 'dotenv/config'
 import express, { Application } from 'express'
+import fileUpload from 'express-fileupload'
 import cors from 'cors'
 import { dbConnection } from '../db/config.db'
 import {
@@ -8,6 +9,7 @@ import {
   productRouter,
   warehouseRouter,
   searchRouter,
+  uploadRouter,
 } from '../routes'
 import { UserSchema } from '../types'
 
@@ -21,6 +23,7 @@ export class Server {
     products: '/api/v1/products',
     warehouse: '/api/v1/warehouses',
     search: '/api/v1/search',
+    uploads: '/api/v1/uploads',
   }
 
   constructor() {
@@ -37,6 +40,12 @@ export class Server {
     this.app.use(cors())
     this.app.use(express.json())
     this.app.use(express.static('public'))
+    this.app.use(
+      fileUpload({
+        useTempFiles: true,
+        tempFileDir: '/tmp/',
+      }),
+    )
   }
 
   async connectDB() {
@@ -49,6 +58,7 @@ export class Server {
     this.app.use(this.paths.products, productRouter)
     this.app.use(this.paths.warehouse, warehouseRouter)
     this.app.use(this.paths.search, searchRouter)
+    this.app.use(this.paths.uploads, uploadRouter)
   }
 
   listen() {
@@ -62,6 +72,7 @@ declare global {
   namespace Express {
     interface Request {
       user?: UserSchema
+      files?: fileUpload.FileArray | null
     }
   }
 }

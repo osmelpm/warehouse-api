@@ -22,4 +22,5 @@ export interface ProductSchema {
   img: string
   price: number
   isDeleted: boolean
+  save?: () => void
 }
