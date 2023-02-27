@@ -18,7 +18,7 @@ export const loadFile = async (
   const { tempFilePath } = file
 
   const { secure_url } = await cloudinary.uploader.upload(tempFilePath, {
-    folder: `sales-report-api/uploads/${collection}/`,
+    folder: `warehouse/uploads/${collection}/`,
   })
 
   return secure_url

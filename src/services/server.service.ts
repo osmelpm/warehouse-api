@@ -10,6 +10,7 @@ import {
   warehouseRouter,
   searchRouter,
   uploadRouter,
+  docsRouter,
 } from '../routes'
 import { UserSchema } from '../types'
 
@@ -24,11 +25,12 @@ export class Server {
     warehouse: '/api/v1/warehouses',
     search: '/api/v1/search',
     uploads: '/api/v1/uploads',
+    docs: '/api/v1/docs',
   }
 
   constructor() {
     this.app = express()
-    this.port = process.env.PORT || '8000'
+    this.port = process.env.PORT || '8080'
     this.env = this.app.get('env')
 
     this.connectDB()
@@ -59,6 +61,7 @@ export class Server {
     this.app.use(this.paths.warehouse, warehouseRouter)
     this.app.use(this.paths.search, searchRouter)
     this.app.use(this.paths.uploads, uploadRouter)
+    this.app.use(this.paths.docs, docsRouter)
   }
 
   listen() {
