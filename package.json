@@ -2,11 +2,11 @@
   "name": "warehouse-api",
   "version": "1.0.0",
   "description": "Small project about a warehouse api",
-  "main": "/build/app.js",
+  "main": "/build/app",
   "scripts": {
-    "dev": "nodemon src/build/app.js",
+    "dev": "nodemon ./build/app",
     "build": "tsc",
-    "start": "node src/build/app.js",
+    "start": "node ./build/app.js",
     "test": "npx jest --verbose ./src/helpers --detectOpenHandles"
   },
   "keywords": [],

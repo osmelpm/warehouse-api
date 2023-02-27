@@ -29,8 +29,27 @@ export const swaggerDefinition = {
     {
       name: 'Warehouses',
     },
+    {
+      name: 'Misc',
+    },
   ],
   paths: {
+    '/search/:collection/:term': {
+      get: {
+        tags: ['Misc'],
+        summary: 'Search a wording from from a given collection',
+        description:
+          'Get the array of documents that match with the wording search. Authorized users: admin',
+      },
+    },
+    '/uploads/:collection/:id': {
+      put: {
+        tags: ['Misc'],
+        summary: 'Set product or user img',
+        description:
+          'Upload an image to cloudinary for a given user o product document',
+      },
+    },
     '/auth/login': {
       post: {
         tags: ['Authentication'],
