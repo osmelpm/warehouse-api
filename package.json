@@ -5,7 +5,8 @@
   "main": "build/app.js",
   "scripts": {
     "dev": "nodemon build/app.js",
-    "start": "tsc && node build/app",
+    "build": "tsc",
+    "start": "node build/app",
     "test": "npx jest --verbose ./src/helpers --detectOpenHandles"
   },
   "keywords": [],
