@@ -17,6 +17,7 @@ export interface Product {
 }
 
 export interface ProductSchema {
+  id?: Schema.Types.ObjectId
   name: string
   desc: string
   img: string
