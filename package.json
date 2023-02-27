@@ -2,7 +2,7 @@
   "name": "warehouse-api",
   "version": "1.0.0",
   "description": "Small project about a warehouse api",
-  "main": "/build/app",
+  "main": "./build/app",
   "scripts": {
     "dev": "nodemon ./build/app",
     "build": "tsc",
