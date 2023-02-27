@@ -9,7 +9,7 @@
     "moduleResolution": "node",
     /* Emit */
     "sourceMap": true,
-    "outDir": "./src/build",
+    "outDir": "./build",
     /* Interop Constraints */
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
