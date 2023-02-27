@@ -15,6 +15,10 @@ export const swaggerDefinition = {
       url: 'http://localhost:8080/api/v1',
       description: 'Development Server',
     },
+    {
+      url: 'https://warehouse-api-npjs.onrender.com/api/v1',
+      description: 'Production Server',
+    },
   ],
   tags: [
     {
